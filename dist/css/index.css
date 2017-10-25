@@ -1,0 +1,10 @@
+body {
+    background: red;
+    color: yellow;
+}
+
+#train {
+    background: url(http://localhost:9527/images/21089c53a19fb6bbb8e1148ed8b429c1.png);
+    width: 76px;
+    height: 76px;
+}

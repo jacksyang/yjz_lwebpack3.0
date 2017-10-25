@@ -1,0 +1,10 @@
+body {
+    background: red;
+    color: yellow;
+}
+
+#train {
+    background: url("../img/1.png");
+    width: 76px;
+    height: 76px;
+}
