@@ -1,8 +1,11 @@
 const path = require("path")
+const golb = require("golb")
 const uglifyPlugin = require("uglifyjs-webpack-plugin");
 const webpack = require("webpack");
 const htmlPlugin = require("html-webpack-plugin")
 const extractTextPlugin = require("extract-text-webpack-plugin")
+const purifyCssPlugin = require("purifycss-webpack")
+
 var website = {
     publicPath: 'http://localhost:9527/'
 }
@@ -25,8 +28,16 @@ module.exports = {
                 //     loader: "css-loader"
                 // }],
                 use: extractTextPlugin.extract({
+
                     fallback: "style-loader",
-                    use: "css-loader"
+                    use: [{
+                            loader: "css-loader",
+                            options: {
+                                importLoaders: 1
+                            }
+                        },
+                        "postcss-loader"
+                    ]
                 })
             },
             {
@@ -35,10 +46,57 @@ module.exports = {
                     loader: "url-loader",
                     options: {
                         limit: 5,
-                        outputPath:"images/"
+                        outputPath: "images/"
                     }
                 }]
 
+            },
+            {
+                test: /\.(htm|html)$/i,
+                use: ['html-withimg-loader']
+            },
+            {
+                test: /\.less$/,
+                use: extractTextPlugin.extract({
+
+                    use: [{
+                            loader: "css-loader"
+                        },
+                        {
+                            loader: "less-loader"
+                        }
+                    ],
+                    fallback: "style-loader",
+                })
+                // use: [{
+                //     loader: "style-loader"
+                // }, {
+                //     loader: "css-loader"
+                // }, {
+                //     loader: "less-loader"
+                // }],
+            },
+            {
+                test: /\.(scss|sass)$/,
+                use: extractTextPlugin.extract({
+
+                    use: [{
+                            loader: "css-loader"
+                        },
+                        {
+                            loader: "sass-loader"
+                        },
+                        "postcss-loader"
+                    ],
+                    fallback: "style-loader",
+                })
+                // use: [{
+                //     loader: "style-loader"
+                // }, {
+                //     loader: "css-loader"
+                // }, {
+                //     loader: "less-loader"
+                // }],
             }
         ]
     },

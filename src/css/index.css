@@ -7,4 +7,7 @@ body {
     background: url("../img/1.png");
     width: 76px;
     height: 76px;
+    -webkit-box-align: none;
+    transform: rotate(45reg);
+    box-shadow: 1px solid red;
 }

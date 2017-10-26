@@ -7,4 +7,16 @@ body {
     background: url(http://localhost:9527/images/21089c53a19fb6bbb8e1148ed8b429c1.png);
     width: 76px;
     height: 76px;
+    -webkit-box-align: none;
+    -webkit-transform: rotate(45reg);
+            transform: rotate(45reg);
+    -webkit-box-shadow: 1px solid red;
+            box-shadow: 1px solid red;
+}#train {
+  background: #000000;
 }
+#app {
+  font-size: 14px;
+  -webkit-box-align: none;
+  -webkit-transform: rotate(45reg);
+  transform: rotate(45reg); }
