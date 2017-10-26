@@ -5,15 +5,16 @@ const webpack = require("webpack");
 const htmlPlugin = require("html-webpack-plugin")
 const extractTextPlugin = require("extract-text-webpack-plugin")
 const purifyCssPlugin = require("purifycss-webpack")
-const entry = require("./webpack_config/entry_webpack.js")
+const entry = require("./webpack_config/entry_webpack.js");
+
 console.log(encodeURIComponent(process.env.type))
 if (process.env.type == "build") {
     var website = {
-        publicPath: 'http://localhost:9527/'
+        publicPath: './'
     }
 } else {
     var website = {
-        publicPath: 'http://192.168.1.107:8085/'
+        publicPath: './'
     }
 
 }
@@ -124,7 +125,13 @@ module.exports = {
         ]
     },
     plugins: [
-        // new uglifyPlugin() //生成环境用
+        new webpack.ProvidePlugin({
+            $: "jquery",
+
+            //不用的花不会把jq打进去
+
+        }),
+      
         new htmlPlugin({
             minify: {
                 removeAttributeQuotes: true,
@@ -136,12 +143,21 @@ module.exports = {
         new purifyCssPlugin({
             paths: glob.sync(path.join(__dirname, "src/*.html"))
         }),
+        new webpack.BannerPlugin("2017-10-26"),
+        // new uglifyPlugin() //生成环境用
+        //打版本号
     ],
     devServer: {
         contentBase: path.resolve(__dirname, "dist"),
         host: "localhost",
         compress: true, //服务器压缩
         port: 9527
+
+    },
+    watchOptions: {
+        poll: 1000,
+        aggregeateTimeout: 500,
+        ignored:/node_modules/,
 
     }
 

@@ -1,4 +1,7 @@
 import css from "./css/index.css"
 import "./css/black.less"
 import "./css/new.scss"
-document.getElementById("app").innerHTML = "我的id是app"
+
+document.getElementById("app").innerHTML = "我的id是app";
+$("#app").html("12312312") 
+console.log($("#app"))
