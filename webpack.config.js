@@ -26,6 +26,10 @@ module.exports = {
     //eval-source-map独立开发阶段
     //cheap-module-eval-source-map列
     entry: entry.path,
+    entry: {
+        entry: "./src/entry.js",
+        entry2: "./src/entry2.js",
+    },
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "[name].js",
