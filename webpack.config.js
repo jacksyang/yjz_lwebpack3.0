@@ -21,6 +21,16 @@ module.exports = {
     },
     module: {
         rules: [{
+                test: /\.js$/,
+                use: {
+                    loader: "babel-loader",
+                    options: {
+                        presets: ["es2015"]
+                    }
+                },
+                exclude: /node_modules/
+
+            }, {
                 test: /\.css$/,
                 // use: [{
                 //     loader: "style-loader"
@@ -97,7 +107,8 @@ module.exports = {
                 // }, {
                 //     loader: "less-loader"
                 // }],
-            }
+            },
+
         ]
     },
     plugins: [
