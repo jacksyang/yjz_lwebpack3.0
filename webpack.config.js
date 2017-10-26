@@ -5,15 +5,27 @@ const webpack = require("webpack");
 const htmlPlugin = require("html-webpack-plugin")
 const extractTextPlugin = require("extract-text-webpack-plugin")
 const purifyCssPlugin = require("purifycss-webpack")
+const entry = require("./webpack_config/entry_webpack.js")
+console.log(encodeURIComponent(process.env.type))
+if (process.env.type == "build") {
+    var website = {
+        publicPath: 'http://localhost:9527/'
+    }
+} else {
+    var website = {
+        publicPath: 'http://192.168.1.107:8085/'
+    }
 
-var website = {
-    publicPath: 'http://localhost:9527/'
 }
+
+
 module.exports = {
-    entry: {
-        entry: "./src/entry.js",
-        entry2: "./src/entry2.js",
-    },
+    devtool: "source-map",
+    //source-map独立map(最全，项目开发组用)
+    //cheap-module-source-map独立map
+    //eval-source-map独立开发阶段
+    //cheap-module-eval-source-map列
+    entry: entry.path,
     output: {
         path: path.resolve(__dirname, "dist"),
         filename: "[name].js",
@@ -24,12 +36,8 @@ module.exports = {
                 test: /\.js$/,
                 use: {
                     loader: "babel-loader",
-                    options: {
-                        presets: ["es2015"]
-                    }
                 },
                 exclude: /node_modules/
-
             }, {
                 test: /\.css$/,
                 // use: [{
