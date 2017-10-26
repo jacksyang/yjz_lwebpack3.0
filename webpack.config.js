@@ -1,5 +1,5 @@
 const path = require("path")
-const golb = require("golb")
+const glob = require("glob")
 const uglifyPlugin = require("uglifyjs-webpack-plugin");
 const webpack = require("webpack");
 const htmlPlugin = require("html-webpack-plugin")
@@ -109,7 +109,10 @@ module.exports = {
             hash: true,
             template: "./src/index.html"
         }),
-        new extractTextPlugin("css/index.css")
+        new extractTextPlugin("css/index.css"),
+        new purifyCssPlugin({
+            paths: glob.sync(path.join(__dirname, "src/*.html"))
+        }),
     ],
     devServer: {
         contentBase: path.resolve(__dirname, "dist"),
