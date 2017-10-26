@@ -30,6 +30,8 @@ module.exports = {
     entry: {
         entry: "./src/entry.js",
         entry2: "./src/entry2.js",
+        jquery: "jquery"
+
     },
     output: {
         path: path.resolve(__dirname, "dist"),
@@ -125,13 +127,20 @@ module.exports = {
         ]
     },
     plugins: [
+        new webpack.optimize.CommonsChunkPlugin({
+            name: "jquery",
+            filename: "assets/js/jquery.min.js",
+            minChunks: 2,
+
+
+        }),
         new webpack.ProvidePlugin({
             $: "jquery",
 
             //不用的花不会把jq打进去
 
         }),
-      
+
         new htmlPlugin({
             minify: {
                 removeAttributeQuotes: true,
@@ -157,7 +166,7 @@ module.exports = {
     watchOptions: {
         poll: 1000,
         aggregeateTimeout: 500,
-        ignored:/node_modules/,
+        ignored: /node_modules/,
 
     }
 
