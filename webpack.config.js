@@ -1,6 +1,7 @@
 const path = require("path")
 const glob = require("glob")
 const uglifyPlugin = require("uglifyjs-webpack-plugin");
+const copyPlugin = require("copy-webpack-plugin");
 const webpack = require("webpack");
 const htmlPlugin = require("html-webpack-plugin")
 const extractTextPlugin = require("extract-text-webpack-plugin")
@@ -30,7 +31,8 @@ module.exports = {
     entry: {
         entry: "./src/entry.js",
         entry2: "./src/entry2.js",
-        jquery: "jquery"
+        jquery: "jquery",
+        vue: "vue"
 
     },
     output: {
@@ -128,11 +130,9 @@ module.exports = {
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
-            name: "jquery",
-            filename: "assets/js/jquery.min.js",
+            name: ["jquery", "vue"],
+            filename: "js/[name].js",
             minChunks: 2,
-
-
         }),
         new webpack.ProvidePlugin({
             $: "jquery",
@@ -153,6 +153,12 @@ module.exports = {
             paths: glob.sync(path.join(__dirname, "src/*.html"))
         }),
         new webpack.BannerPlugin("2017-10-26"),
+        new copyPlugin([{
+            from:__dirname+'/src/img',
+            to:"./public"
+        }])
+        //复制src到dist，没什么道理。
+        //
         // new uglifyPlugin() //生成环境用
         //打版本号
     ],
