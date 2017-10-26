@@ -154,10 +154,10 @@ module.exports = {
         }),
         new webpack.BannerPlugin("2017-10-26"),
         new copyPlugin([{
-            from:__dirname+'/src/img',
-            to:"./public"
+            from: __dirname + '/src/img',
+            to: "./public"
         }])
-        //复制src到dist，没什么道理。
+        //复制src到dist，没什么道理。f
         //
         // new uglifyPlugin() //生成环境用
         //打版本号
